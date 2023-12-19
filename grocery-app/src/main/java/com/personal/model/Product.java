@@ -6,12 +6,12 @@ import lombok.Data;
 public class Product {
 
 	private Long id;
-	private String tesco_url;
-	private String sainsbury_url;
-	private String lidl_url;
-	private String home_bargains_url;
-	private String asda_url;
-	private String morrissons_url;
-	private String aldi_url;
+	private String tescoUrl;
+	private String sainsburyUrl;
+	private String lidlUrl;
+	private String homeBargainsUrl;
+	private String asdaUrl;
+	private String morrissonsUrl;
+	private String aldiUrl;
 	
 }
