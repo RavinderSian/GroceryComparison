@@ -1,8 +1,15 @@
 package com.personal.repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import com.personal.model.Product;
 
@@ -16,8 +23,32 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 	@Override
 	public Product save(Product product) {
-		// TODO Auto-generated method stub
-		return null;
+		KeyHolder holder = new GeneratedKeyHolder();
+		
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement("INSERT INTO product (tesco_url, sainsbury_url, "
+						+ "lidl_url, home_bargains_url, asda_url, morrissons_url, aldi_url) "
+							+ "VALUES (?, ?, ?, ?, ?, ?, ?)",
+							Statement.RETURN_GENERATED_KEYS);
+				
+				ps.setString(1, product.getTescoUrl());
+				ps.setString(2, product.getSainsburyUrl());
+				ps.setString(3, product.getLidlUrl());
+				ps.setString(4, product.getHomeBargainsUrl());
+				ps.setString(5, product.getAsdaUrl());
+				ps.setString(6, product.getMorrissonsUrl());
+				ps.setString(7, product.getAldiUrl());
+
+				return ps;
+			}
+		}, holder);
+		
+		Number newId = (Long) holder.getKeys().get("id");
+		
+		product.setId(newId.longValue());
+		return product;
 	}
 
 	@Override

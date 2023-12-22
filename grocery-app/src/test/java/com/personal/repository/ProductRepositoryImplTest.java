@@ -2,7 +2,6 @@
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +22,8 @@ class ProductRepositoryImplTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		repository = new ProductRepositoryImpl(jdbcTemplate);
+	
+	repository = new ProductRepositoryImpl(jdbcTemplate);
 	
     	jdbcTemplate.execute("""
     			CREATE TABLE product ( id bigint NOT NULL PRIMARY KEY AUTO_INCREMENT, 
@@ -32,8 +32,8 @@ class ProductRepositoryImplTest {
     			lidl_url varchar(50),
     			home_bargains_url varchar(50),
     			asda_url varchar(50),
-    			morissons_url varchar(50),
-    			aldi_url varchar(50),
+    			morrissons_url varchar(50),
+    			aldi_url varchar(50)
     			);
     			""");
     }
@@ -64,8 +64,8 @@ class ProductRepositoryImplTest {
 		assertThat(product.getSainsburyUrl(), equalTo(savedProduct.getSainsburyUrl()));
 		assertThat(product.getLidlUrl(), equalTo(savedProduct.getLidlUrl()));
 		assertThat(product.getHomeBargainsUrl(), equalTo(savedProduct.getHomeBargainsUrl()));
-		assertThat(product.getMorrissonsUrl(), equalTo(savedProduct.getTescoUrl()));
-		assertThat(product.getAsdaUrl(), equalTo(savedProduct.getMorrissonsUrl()));
+		assertThat(product.getMorrissonsUrl(), equalTo(savedProduct.getMorrissonsUrl()));
+		assertThat(product.getAsdaUrl(), equalTo(savedProduct.getAsdaUrl()));
 		assertThat(product.getAldiUrl(), equalTo(savedProduct.getAldiUrl()));
 
 		
