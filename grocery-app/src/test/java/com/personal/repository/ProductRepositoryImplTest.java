@@ -16,7 +16,7 @@ import com.personal.model.Product;
 class ProductRepositoryImplTest {
 	
 	@Autowired
-	JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	private ProductRepository repository;
 
