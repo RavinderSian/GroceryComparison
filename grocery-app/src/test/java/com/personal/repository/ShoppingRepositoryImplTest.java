@@ -1,6 +1,10 @@
 package com.personal.repository;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.math.BigDecimal;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.personal.model.Product;
+import com.personal.model.Shopping;
 
 @JdbcTest
 class ShoppingRepositoryImplTest {
@@ -37,8 +44,16 @@ class ShoppingRepositoryImplTest {
     }
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void test_Save_SavesCorrectly_WhenGivenValidProduct() {
+		
+		Shopping shoppping = new Shopping();
+		shoppping.setTotalPrice(BigDecimal.valueOf(10.00));
+
+		Shopping savedShopping = repository.save(shoppping);
+		
+		assertThat(shoppping.getId(), equalTo(1L));
+		assertThat(shoppping.getTotalPrice(), equalTo(savedShopping.getTotalPrice()));
+
 	}
 
 }
