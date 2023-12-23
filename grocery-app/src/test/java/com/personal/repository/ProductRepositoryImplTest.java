@@ -49,7 +49,7 @@ class ProductRepositoryImplTest {
     }
 
 	@Test
-	void test_Save_SavesCorrectly_WhenGivenValidProduct() {
+	void test_save_SavesCorrectly_WhenGivenValidProduct() {
 		
 		Product product = new Product();
 		product.setTescoUrl("test tesco");
@@ -102,6 +102,28 @@ class ProductRepositoryImplTest {
 	
 	@Test
 	void test_findById_ReturnsEmptyOptional_WhenEntityDoesNotExistInDatabase() {
+		
+		Optional<Product> savedProductOptional = repository.findById(1L);
+		
+		assertThat(savedProductOptional.isEmpty(), equalToObject(true));
+		
+	}
+	
+	@Test
+	void test_deleteById_ReturnsEmptyOptional_WhenEntityExistsInDatabase() {
+		
+		Product product = new Product();
+		product.setTescoUrl("test tesco");
+		product.setSainsburyUrl("test sainsbury");
+		product.setLidlUrl("test lidl");
+		product.setHomeBargainsUrl("test home bargains");
+		product.setAsdaUrl("test asda");
+		product.setMorrissonsUrl("test morrissons");
+		product.setAldiUrl("test aldi");
+
+		repository.save(product);
+		
+		repository.deleteById(1L);
 		
 		Optional<Product> savedProductOptional = repository.findById(1L);
 		

@@ -43,7 +43,7 @@ class ShoppingRepositoryImplTest {
     }
 
 	@Test
-	void test_Save_SavesCorrectly_WhenGivenValidProduct() {
+	void test_save_SavesCorrectly_WhenGivenValidProduct() {
 		
 		Shopping shopping = new Shopping();
 		shopping.setTotalPrice(BigDecimal.valueOf(10.00));
@@ -71,7 +71,23 @@ class ShoppingRepositoryImplTest {
 	}
 
 	@Test
-	void test_findById_ReturnsEmptyOptional_WhenEntityDoesNotExitInDatabase() {
+	void test_findById_ReturnsEmptyOptional_WhenEntityDoesNotExistInDatabase() {
+		
+		Optional<Shopping> savedShoppingOptional = repository.findById(1L);
+		
+		assertThat(savedShoppingOptional.isEmpty(), equalTo(true));
+		
+	}
+	
+	@Test
+	void test_deleteById_DeletesEntity_WhenEntityExistsInDatabase() {
+		
+		Shopping shopping = new Shopping();
+		shopping.setTotalPrice(BigDecimal.valueOf(10.13));
+
+		repository.save(shopping);
+		
+		repository.deleteById(1L);
 		
 		Optional<Shopping> savedShoppingOptional = repository.findById(1L);
 		
