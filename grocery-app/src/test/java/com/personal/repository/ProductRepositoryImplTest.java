@@ -1,7 +1,10 @@
  package com.personal.repository;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.equalToObject;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,6 +97,15 @@ class ProductRepositoryImplTest {
 		assertThat(product.getMorrissonsUrl(), equalTo(savedProduct.getMorrissonsUrl()));
 		assertThat(product.getAsdaUrl(), equalTo(savedProduct.getAsdaUrl()));
 		assertThat(product.getAldiUrl(), equalTo(savedProduct.getAldiUrl()));
+		
+	}
+	
+	@Test
+	void test_findById_ReturnsEmptyOptional_WhenEntityDoesNotExistInDatabase() {
+		
+		Optional<Product> savedProductOptional = repository.findById(1L);
+		
+		assertThat(savedProductOptional.isEmpty(), equalToObject(true));
 		
 	}
 

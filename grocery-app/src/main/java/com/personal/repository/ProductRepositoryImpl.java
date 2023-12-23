@@ -66,8 +66,11 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
 		
+		String sql = "DELETE FROM product WHERE id = " + id;
+		
+		jdbcTemplate.execute(sql);
 	}
+
 
 }

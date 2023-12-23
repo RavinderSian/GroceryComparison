@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,15 +59,24 @@ class ShoppingRepositoryImplTest {
 	void test_findById_ReturnsOptional_WhenEntityExistsInDatabase() {
 		
 		Shopping shopping = new Shopping();
-		shopping.setTotalPrice(BigDecimal.valueOf(10.00));
+		shopping.setTotalPrice(BigDecimal.valueOf(10.13));
 
 		repository.save(shopping);
 		
 		Shopping savedShopping = repository.findById(1L).get();
 		
 		assertThat(shopping.getId(), equalTo(1L));
-		assertThat(shopping.getTotalPrice(), equalTo(savedShopping.getTotalPrice()));
+		assertThat(shopping.getTotalPrice( ), equalTo(savedShopping.getTotalPrice()));
 		
 	}
 
+	@Test
+	void test_findById_ReturnsEmptyOptional_WhenEntityDoesNotExitInDatabase() {
+		
+		Optional<Shopping> savedShoppingOptional = repository.findById(1L);
+		
+		assertThat(savedShoppingOptional.isEmpty(), equalTo(true));
+		
+	}
+	
 }

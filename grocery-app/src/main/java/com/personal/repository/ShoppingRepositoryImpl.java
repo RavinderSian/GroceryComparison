@@ -59,7 +59,10 @@ public class ShoppingRepositoryImpl implements ShoppingRepository {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+
+		String sql = "DELETE FROM shopping WHERE id = " + id;
+		
+		jdbcTemplate.execute(sql);
 		
 	}
 
