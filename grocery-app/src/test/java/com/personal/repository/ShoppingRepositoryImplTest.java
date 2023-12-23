@@ -2,7 +2,6 @@ package com.personal.repository;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.personal.model.Product;
 import com.personal.model.Shopping;
 
 @JdbcTest
@@ -46,14 +44,29 @@ class ShoppingRepositoryImplTest {
 	@Test
 	void test_Save_SavesCorrectly_WhenGivenValidProduct() {
 		
-		Shopping shoppping = new Shopping();
-		shoppping.setTotalPrice(BigDecimal.valueOf(10.00));
+		Shopping shopping = new Shopping();
+		shopping.setTotalPrice(BigDecimal.valueOf(10.00));
 
-		Shopping savedShopping = repository.save(shoppping);
+		Shopping savedShopping = repository.save(shopping);
 		
-		assertThat(shoppping.getId(), equalTo(1L));
-		assertThat(shoppping.getTotalPrice(), equalTo(savedShopping.getTotalPrice()));
+		assertThat(shopping.getId(), equalTo(1L));
+		assertThat(shopping.getTotalPrice(), equalTo(savedShopping.getTotalPrice()));
 
+	}
+	
+	@Test
+	void test_findById_ReturnsOptional_WhenEntityExistsInDatabase() {
+		
+		Shopping shopping = new Shopping();
+		shopping.setTotalPrice(BigDecimal.valueOf(10.00));
+
+		repository.save(shopping);
+		
+		Shopping savedShopping = repository.findById(1L).get();
+		
+		assertThat(shopping.getId(), equalTo(1L));
+		assertThat(shopping.getTotalPrice(), equalTo(savedShopping.getTotalPrice()));
+		
 	}
 
 }

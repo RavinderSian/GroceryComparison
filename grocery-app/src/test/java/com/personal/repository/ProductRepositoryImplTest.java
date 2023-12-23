@@ -68,8 +68,33 @@ class ProductRepositoryImplTest {
 		assertThat(product.getAsdaUrl(), equalTo(savedProduct.getAsdaUrl()));
 		assertThat(product.getAldiUrl(), equalTo(savedProduct.getAldiUrl()));
 
-		
 	}
 	
+	@Test
+	void test_findById_ReturnsOptional_WhenEntityExistsInDatabase() {
+		
+		Product product = new Product();
+		product.setTescoUrl("test tesco");
+		product.setSainsburyUrl("test sainsbury");
+		product.setLidlUrl("test lidl");
+		product.setHomeBargainsUrl("test home bargains");
+		product.setAsdaUrl("test asda");
+		product.setMorrissonsUrl("test morrissons");
+		product.setAldiUrl("test aldi");
+
+		repository.save(product);
+		
+		Product savedProduct = repository.findById(1L).get();
+		
+		assertThat(product.getId(), equalTo(1L));
+		assertThat(product.getTescoUrl(), equalTo(savedProduct.getTescoUrl()));
+		assertThat(product.getSainsburyUrl(), equalTo(savedProduct.getSainsburyUrl()));
+		assertThat(product.getLidlUrl(), equalTo(savedProduct.getLidlUrl()));
+		assertThat(product.getHomeBargainsUrl(), equalTo(savedProduct.getHomeBargainsUrl()));
+		assertThat(product.getMorrissonsUrl(), equalTo(savedProduct.getMorrissonsUrl()));
+		assertThat(product.getAsdaUrl(), equalTo(savedProduct.getAsdaUrl()));
+		assertThat(product.getAldiUrl(), equalTo(savedProduct.getAldiUrl()));
+		
+	}
 
 }

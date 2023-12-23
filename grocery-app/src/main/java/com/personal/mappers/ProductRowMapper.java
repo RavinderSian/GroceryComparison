@@ -15,11 +15,11 @@ public class ProductRowMapper implements RowMapper<Product> {
 		product.setId(rs.getLong("id"));
 		product.setTescoUrl(rs.getString(("tesco_url")));
 		product.setSainsburyUrl(rs.getString(("sainsbury_url")));
+		product.setAsdaUrl(rs.getString(("asda_url")));
 		product.setLidlUrl(rs.getString(("lidl_url")));
 		product.setAldiUrl(rs.getString(("aldi_url")));
 		product.setMorrissonsUrl(rs.getString(("morrissons_url")));
 		product.setHomeBargainsUrl(rs.getString(("home_bargains_url")));
-
 		
 		return product;
 	}

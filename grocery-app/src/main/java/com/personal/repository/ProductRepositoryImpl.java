@@ -6,11 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import com.personal.mappers.ProductRowMapper;
 import com.personal.model.Product;
 
 public class ProductRepositoryImpl implements ProductRepository {
@@ -53,8 +55,13 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 	@Override
 	public Optional<Product> findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return Optional.of(jdbcTemplate.queryForObject("SELECT * FROM product WHERE id=?", 
+					new ProductRowMapper(), id));
+			}
+			catch (EmptyResultDataAccessException e) {
+				return Optional.empty();
+			}
 	}
 
 	@Override

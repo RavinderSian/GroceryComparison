@@ -6,11 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import com.personal.mappers.ShoppingRowMapper;
 import com.personal.model.Shopping;
 
 public class ShoppingRepositoryImpl implements ShoppingRepository {
@@ -46,8 +48,13 @@ public class ShoppingRepositoryImpl implements ShoppingRepository {
 
 	@Override
 	public Optional<Shopping> findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return Optional.of(jdbcTemplate.queryForObject("SELECT * FROM shopping WHERE id=?", 
+					new ShoppingRowMapper(), id));
+			}
+			catch (EmptyResultDataAccessException e) {
+				return Optional.empty();
+			}
 	}
 
 	@Override
