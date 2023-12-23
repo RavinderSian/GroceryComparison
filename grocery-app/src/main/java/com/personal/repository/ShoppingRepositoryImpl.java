@@ -11,10 +11,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import com.personal.mappers.ShoppingRowMapper;
 import com.personal.model.Shopping;
 
+@Repository
 public class ShoppingRepositoryImpl implements ShoppingRepository {
 	
 	private final JdbcTemplate jdbcTemplate;
