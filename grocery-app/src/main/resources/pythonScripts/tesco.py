@@ -1,5 +1,6 @@
 import sys
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 #This stops the window closing immediately
 options = webdriver.EdgeOptions()
@@ -12,5 +13,8 @@ web = webdriver.Edge(options=options)
 
 web.get(sys.argv[1])
 
-# Find the element by ID
-# element = driver.find_element_by_id("myButton")
+pricecheck = web.find_element("xpath", '//*[@id="asparagus-root"]/div/div[2]/main/div/div/div[2]/div/section[2]/div[2]/div[1]/div/div/div[1]/p')
+print(pricecheck.text)
+# # Find the element by ID
+# price = web.find_element('xpath', '//*[@id="asparagus-root"]/div/div[2]/main/div/div/div[2]/div/section[2]/div[2]/div[2]/div/div/div[1]')
+# print(price.text)
